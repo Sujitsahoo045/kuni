@@ -1,319 +1,282 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Beautiful Moments ✨</title>
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;500;600&display=swap" rel="stylesheet">
-    <style>
-        body {
-            margin: 0;
-            height: 100vh;
-            font-family: 'Segoe UI', sans-serif;
-            overflow: hidden;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-        }
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Beautiful Moments ✨</title>
 
-        /* 🌈 Animated Premium Background */
-        body::before {
-            content: "";
-            position: fixed;
-            width: 200%;
-            height: 200%;
-            background: linear-gradient(45deg, #5f72ff, #9b23ea, #ff758c, #42e695);
-           /* animation: bgMove 12s infinite alternate ease-in-out; */
-            z-index: -3;
-        }
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;500;600&display=swap" rel="stylesheet">
 
-        @keyframes bgMove {
-            0% {
-                transform: translate(0, 0);
-            }
+<style>
+body {
+    margin: 0;
+    height: 100vh;
+    font-family: 'Poppins', sans-serif;
+    overflow: hidden;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
 
-            100% {
-                transform: translate(-30%, -30%);
-            }
-        }
+/* 🌈 Background */
+body::before {
+    content: "";
+    position: fixed;
+    width: 200%;
+    height: 200%;
+    background: linear-gradient(45deg, #5f72ff, #9b23ea, #ff758c, #42e695);
+    z-index: -3;
+}
 
-        /* ✨ Glow layer */
-        body::after {
-            content: "";
-            position: fixed;
-            width: 100%;
-            height: 100%;
-            background: radial-gradient(circle, rgba(255, 255, 255, 0.1), transparent);
-            z-index: -2;
-        }
+/* Glow */
+body::after {
+    content: "";
+    position: fixed;
+    width: 100%;
+    height: 100%;
+    background: radial-gradient(circle, rgba(255,255,255,0.1), transparent);
+    z-index: -2;
+}
 
-        /* ✨ Particles */
-        .particle {
-            position: absolute;
-            background: rgba(255, 255, 255, 0.15);
-            border-radius: 50%;
-            animation: floatUp linear infinite;
-        }
+/* ✨ Particles */
+.particle {
+    position: absolute;
+    background: rgba(255,255,255,0.15);
+    border-radius: 50%;
+    animation: floatUp linear infinite;
+}
 
-        @keyframes floatUp {
-            from {
-                transform: translateY(100vh);
-            }
+@keyframes floatUp {
+    from { transform: translateY(100vh); }
+    to { transform: translateY(-10vh); }
+}
 
-            to {
-                transform: translateY(-10vh);
-            }
-        }
+/* 🎀 Ribbon */
+.ribbon {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    z-index: 10;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
 
-        /* 🚪 Door Screen */
-        .door-screen {
-            position: absolute;
-            width: 100%;
-            height: 100%;
-            display: flex;
-        }
+.ribbon-line {
+    width: 75%;
+    height: 8px;
+    background: linear-gradient(90deg, #ff416c, #ff4b2b);
+    border-radius: 20px;
+    transition: 0.6s;
+}
 
-        .door {
-            width: 50%;
-            height: 100%;
-            background: linear-gradient(135deg, #ff758c, #ff4b5c);
-            transition: transform 1.5s ease;
-            z-index: 5;
-        }
+.ribbon-knot {
+    position: absolute;
+    font-size: 32px;
+    transition: 0.5s;
+}
 
-        .left {
-            transform-origin: left;
-        }
+.cut .ribbon-line {
+    transform: scaleX(0);
+    opacity: 0;
+}
 
-        .right {
-            transform-origin: right;
-        }
+.cut .ribbon-knot {
+    transform: scale(0) rotate(30deg);
+    opacity: 0;
+}
 
-        /* Open animation */
-        .open .left {
-            transform: rotateY(-120deg);
-        }
+/* 🚪 Door */
+.door-screen {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    display: flex;
+}
 
-        .open .right {
-            transform: rotateY(120deg);
-        }
+.door {
+    width: 50%;
+    height: 100%;
+    background: linear-gradient(135deg, #bb5970, #d37261);
+    transform-origin: left;
+    transition: transform 1.5s ease;
+    z-index: 5;
+    box-shadow: inset 0 0 40px rgba(0,0,0,0.3);
+}
 
-        /* Slider */
-        .slider {
-            width: 320px;
-            height: 520px;
-            position: relative;
-            border-radius: 20px;
-            overflow: hidden;
-            backdrop-filter: blur(20px);
-            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.4);
-        }
+.right {
+    transform-origin: right;
+}
 
-        /* Slides */
-        .slide {
-            position: absolute;
-            width: 100%;
-            height: 100%;
-            opacity: 0;
-            transform: translateX(50px) scale(1.05);
-            transition: all 0.8s ease;
-        }
+.open .left {
+    transform: rotateY(-120deg);
+}
 
-        .slide.active {
-            opacity: 1;
-            transform: translateX(0) scale(1);
-        }
+.open .right {
+    transform: rotateY(120deg);
+}
 
-        .slide img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-        }
+/* Slider */
+.slider {
+    width: 320px;
+    height: 520px;
+    position: relative;
+    border-radius: 20px;
+    overflow: hidden;
+    backdrop-filter: blur(20px);
+    box-shadow: 0 20px 60px rgba(0,0,0,0.4);
+}
 
-        /* Overlay */
-        .overlay {
-            position: absolute;
-            bottom: 0;
-            width: 100%;
-            /* padding: 25px; */
-            padding-bottom: 20px;
-            background: linear-gradient(to top, rgba(0, 0, 0, 0.8), transparent);
-        }
+/* Slides */
+.slide {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    opacity: 0;
+    transform: translateX(50px) scale(1.05);
+    transition: all 0.8s ease;
+}
 
-        /* ✨ Beautiful text */
-        .text {
-            color: white;
-            font-size: 20px;
-            line-height: 1.5;
-            opacity: 0;
-            transform: translateY(20px);
-            animation: textFade 1s forwards;
-            text-align: center;
-        }
+.slide.active {
+    opacity: 1;
+    transform: translateX(0) scale(1);
+}
 
-        @keyframes textFade {
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
-        }
+.slide img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
 
-        /* Hint */
-        .hint {
-            position: absolute;
-            bottom: 10px;
-            width: 100%;
-            text-align: center;
-            color: rgba(255, 255, 255, 0.7);
-            font-size: 12px;
-        }
+/* Overlay */
+.overlay {
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+    padding: 30px 20px;
+    background: linear-gradient(to top, rgba(0,0,0,0.85), transparent);
+}
 
-        /* Mobile */
-        @media (max-width: 400px) {
-            .slider {
-                width: 92%;
-                height: 500px;
-            }
-        }
+/* ✨ Text */
+.text {
+    color: #fff;
+    font-size: 20px;
+    line-height: 1.6;
+    text-align: center;
+    opacity: 0;
+    transform: translateY(30px);
+    animation: textReveal 1.2s ease forwards;
+    text-shadow: 0 2px 10px rgba(0,0,0,0.6);
+}
 
-        .text {
-            font-family: 'Poppins', sans-serif;
-            color: #fff;
-            font-size: 20px;
-            line-height: 1.6;
-            letter-spacing: 0.5px;
+@keyframes textReveal {
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
 
-            opacity: 0;
-            transform: translateY(30px) scale(0.98);
-            animation: textReveal 1.2s ease forwards;
-
-            text-shadow:
-                0 2px 10px rgba(0, 0, 0, 0.6),
-                0 0 15px rgba(255, 255, 255, 0.2);
-        }
-
-        /* ✨ Smooth entrance */
-        @keyframes textReveal {
-            0% {
-                opacity: 0;
-                transform: translateY(30px) scale(0.95);
-                filter: blur(5px);
-            }
-
-            100% {
-                opacity: 1;
-                transform: translateY(0) scale(1);
-                filter: blur(0);
-            }
-        }
-
-        /* ✨ Subtle glow animation */
-        .text::after {
-            content: "";
-            position: absolute;
-            left: 0;
-            bottom: -5px;
-            width: 50%;
-            height: 2px;
-            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.6), transparent);
-            animation: shine 2s infinite;
-        }
-
-        @keyframes shine {
-            0% {
-                transform: translateX(-100%);
-            }
-
-            100% {
-                transform: translateX(200%);
-            }
-        }
-    </style>
+/* Mobile */
+@media (max-width: 400px) {
+    .slider {
+        width: 92%;
+        height: 500px;
+    }
+}
+</style>
 </head>
 
 <body>
 
-    <!-- ✨ Particles -->
-    <script>
-        for (let i = 0; i < 30; i++) {
-            let p = document.createElement("div");
-            p.className = "particle";
-            let size = Math.random() * 6 + 3;
+<!-- ✨ Particles -->
+<script>
+for (let i = 0; i < 30; i++) {
+    let p = document.createElement("div");
+    p.className = "particle";
+    let size = Math.random() * 6 + 3;
+    p.style.width = size + "px";
+    p.style.height = size + "px";
+    p.style.left = Math.random() * 100 + "vw";
+    p.style.animationDuration = (5 + Math.random() * 5) + "s";
+    document.body.appendChild(p);
+}
+</script>
 
-            p.style.width = size + "px";
-            p.style.height = size + "px";
-            p.style.left = Math.random() * 100 + "vw";
-            p.style.animationDuration = (5 + Math.random() * 5) + "s";
+<!-- 🎀 Ribbon -->
+<div class="ribbon" id="ribbon">
+    <div class="ribbon-line"></div>
+    <div class="ribbon-knot">🎀</div>
+</div>
 
-            document.body.appendChild(p);
-        }
-    </script>
+<!-- 🚪 Door -->
+<div class="door-screen" id="door">
+    <div class="door left"></div>
+    <div class="door right"></div>
+</div>
 
-    <!-- 🚪 Door -->
-    <div class="door-screen" id="door">
-        <div class="door left"></div>
-        <div class="door right"></div>
+<!-- 💎 Slider -->
+<div class="slider">
+
+    <div class="slide active">
+        <img src="kuni1.jpeg">
+        <div class="overlay">
+            <div class="text">Your presence makes everything feel lighter ✨</div>
+        </div>
     </div>
 
-    <!-- 💎 Slider -->
-    <div class="slider" id="slider">
-
-        <div class="slide active">
-            <img src="kuni1.jpeg">
-            <div class="overlay">
-                <div class="text">Your presence makes everything feel lighter ✨</div>
-            </div>
+    <div class="slide">
+        <img src="kuni2.jpeg">
+        <div class="overlay">
+            <div class="text">There’s a calmness that follows wherever you go 🌸</div>
         </div>
-
-        <div class="slide">
-            <img src="kuni2.jpeg">
-            <div class="overlay">
-                <div class="text">There’s a calmness that follows wherever you go 🌸</div>
-            </div>
-        </div>
-
-        <div class="slide">
-            <img src="kuni3.jpeg">
-            <div class="overlay">
-                <div class="text">Moments around you always feel a little more special 🌼</div>
-            </div>
-        </div>
-
-        <div class="slide">
-            <img src="kuni4.jpeg">
-            <div class="overlay">
-                <div class="text">Keep being the amazing person you are ✨</div>
-            </div>
-        </div>
-
-        <!-- <div class="hint">Tap anywhere →</div> -->
-
     </div>
 
-    <script>
-        let slides = document.querySelectorAll(".slide");
-        let index = 0;
+    <div class="slide">
+        <img src="kuni3.jpeg">
+        <div class="overlay">
+            <div class="text">Moments around you always feel a little more special 🌼</div>
+        </div>
+    </div>
 
-        /* 🚪 Door open on first tap */
-        let opened = false;
-        document.body.addEventListener("click", () => {
-            if (!opened) {
-                document.getElementById("door").classList.add("open");
-                opened = true;
-                return;
-            }
-            nextSlide();
-        });
+    <div class="slide">
+        <img src="kuni4.jpeg">
+        <div class="overlay">
+            <div class="text">Keep being the amazing person you are ✨</div>
+        </div>
+    </div>
 
-        /* 🎞️ Smooth slide */
-        function nextSlide() {
-            slides[index].classList.remove("active");
-            index = (index + 1) % slides.length;
-            slides[index].classList.add("active");
-        }
-    </script>
+</div>
+
+<script>
+let slides = document.querySelectorAll(".slide");
+let index = 0;
+let started = false;
+
+document.body.addEventListener("click", () => {
+
+    if (!started) {
+        started = true;
+
+        // 🎀 Cut ribbon
+        document.getElementById("ribbon").classList.add("cut");
+
+        // 🚪 Open door after delay
+        setTimeout(() => {
+            document.getElementById("door").classList.add("open");
+        }, 700);
+
+        return;
+    }
+
+    nextSlide();
+});
+
+function nextSlide() {
+    slides[index].classList.remove("active");
+    index = (index + 1) % slides.length;
+    slides[index].classList.add("active");
+}
+</script>
 
 </body>
-
 </html>
